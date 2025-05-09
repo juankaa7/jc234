@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escenario con Telón</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #333;
+        }
+
+        .escenario {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            background-color: #222;
+            border: 5px solid #444;
+            overflow: hidden;
+        }
+
+        .telon {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 1s ease-in-out;
+        }
+
+        .telon.izquierdo {
+            left: 0;
+            background-image: url('https://us.123rf.com/450wm/mahirates/mahirates1812/mahirates181200245/113960949-tel%C3%B3n-de-teatro-cerrado-ilustraci%C3%B3n-pintura-digital.jpg'); /* URL de la imagen del telón */
+            background-position: left center;
+            transform: translateX(0);
+        }
+
+        .telon.derecho {
+            right: 0;
+            background-image: url('https://us.123rf.com/450wm/mahirates/mahirates1812/mahirates181200245/113960949-tel%C3%B3n-de-teatro-cerrado-ilustraci%C3%B3n-pintura-digital.jpg'); /* URL de la misma imagen */
+            background-position: right center;
+            transform: translateX(0);
+        }
+
+        .telon.abierto.izquierdo {
+            transform: translateX(-100%);
+        }
+
+        .telon.abierto.derecho {
+            transform: translateX(100%);
+        }
+
+        .imagen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .imagen.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="escenario" onclick="abrirTelon()">
+        <div class="telon izquierdo"></div>
+        <div class="telon derecho"></div>
+        <img src="https://img.asmedia.epimg.net/resizer/v2/VRM2KEYO4BDHLESQ3XKJYPACTM.jpg?auth=02dcd70e23320e8ed7c73a86f822b18c73fbf57109c8a25fd66de6aec9ca4b4e&width=360&height=203&smart=true" alt="Imagen sorpresa" class="imagen" id="imagen">
+    </div>
+
+    <script>
+        function abrirTelon() {
+            const telonIzquierdo = document.querySelector('.telon.izquierdo');
+            const telonDerecho = document.querySelector('.telon.derecho');
+            const imagen = document.getElementById('imagen');
+
+            telonIzquierdo.classList.add('abierto');
+            telonDerecho.classList.add('abierto');
+
+            // Esperar a que ambos telones terminen su transición
+            telonDerecho.addEventListener('transitionend', () => {
+                imagen.classList.add('visible');
+            }, { once: true });
+        }
+    </script>
+</body>
+</html>
